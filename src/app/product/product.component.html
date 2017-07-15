@@ -1,5 +1,5 @@
-<p>
-  product works!
-  {{product.id}}
-  {{product.face}}
-</p>
+<div class="card"> 
+  <p [ngStyle]="{'font-size':product.size+'px'}">{{product.face}}</p>
+  <span>{{product.price/100 | currency:'USD':true}}</span>
+  <span>{{dateString}}</span>
+</div>

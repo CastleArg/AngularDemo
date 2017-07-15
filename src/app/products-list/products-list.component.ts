@@ -15,7 +15,7 @@ export class ProductsListComponent implements OnInit {
   private baseUrl = 'http://localhost:8000';
   public currentAdUrl:string;
   public products = new Array<Product>();
-  public adFrequency = 3;
+  public adFrequency = 5;
   public isLoading = false;
 
   constructor(private http: Http) { }

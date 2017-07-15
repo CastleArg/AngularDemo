@@ -1,7 +1,9 @@
+<div *ngIf="isLoading">Loading...</div>
+<!--todo animate!!-->
+<div class="row itemsBlock">
+  <div *ngFor="let product of products let i=index" class="col-md-4 col-sm-6 col-12">
 
-  products-list works!
-  <div *ngFor="let product of products let i=index" >
     <app-product [product]="product"></app-product>
-    index:{{i}}
-    <img *ngIf="i%adFrequency==0" src={{currentAdUrl}}/>
+    <app-ad *ngIf="i%adFrequency==0" [url]="getAdUrl()"></app-ad>
   </div>
+</div>

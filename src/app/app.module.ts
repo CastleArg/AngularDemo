@@ -4,12 +4,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductComponent } from './product/product.component';
+import { AdComponent } from './ad/ad.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsListComponent,
-    ProductComponent
+    ProductComponent,
+    AdComponent
   ],
   imports: [
     BrowserModule,

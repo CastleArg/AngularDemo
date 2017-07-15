@@ -13,10 +13,10 @@ import 'rxjs/add/operator/toPromise';
 export class ProductsListComponent implements OnInit {
 
   private baseUrl = 'http://localhost:8000';
-  public currentAdUrl = `${this.baseUrl}/ad/?r=${Math.floor(Math.random() * 1000)}`;
-  public byteData;
+  public currentAdUrl:string;
   public products = new Array<Product>();
-  public adFrequency = 5;
+  public adFrequency = 3;
+  public isLoading = false;
 
   constructor(private http: Http) { }
 
@@ -25,14 +25,25 @@ export class ProductsListComponent implements OnInit {
   }
 
   getProducts() {
-    this.http.get(`${this.baseUrl}/api/products`)
-      //.toPromise()
-      //.map((x)=>x.json())
+    this.isLoading = true;
+    this.http.get(`${this.baseUrl}/api/products`)//todo constant/config file.
       .subscribe(products => {
-        let realJson = `[${products.text().replace(/\n/g, ",").slice(0, -1)}]`;//todo tidy/encapsulate
-        console.log(realJson);
-        this.products = this.products.concat(JSON.parse(realJson));//todo stream one by one.
+        //swap the newlines for commas for now, put in an array and chop the last comma
+        let realJson = `[${products.text().replace(/\n/g, ",").slice(0, -1)}]`;
+        this.products = this.products.concat(JSON.parse(realJson));//todo render one by one if possible.
         console.log(this.products);
+        this.isLoading = false;
       })
+  }
+
+  getAdUrl() : string{
+    let url = `${this.baseUrl}/ad/?r=${Math.floor(Math.random() * 1000)}`;
+    //don't retun the same one twice in a row.
+    if (url !== this.currentAdUrl){
+     // this.currentAdUrl = url;
+      return url;
+    }
+    console.log('same one twice, get againg');
+    this.getAdUrl();
   }
 }

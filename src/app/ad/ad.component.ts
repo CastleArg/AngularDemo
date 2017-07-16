@@ -1,14 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ProductsListComponent } from "../products-list/products-list.component";
 @Component({
   selector: 'app-ad',
   templateUrl: './ad.component.html',
   styleUrls: ['./ad.component.css']
 })
 export class AdComponent implements OnInit {
-  @Input() url: string;
+  public readonly url: string = ProductsListComponent.getAdUrl();
   constructor() { }
-
   ngOnInit() {
   }
-
 }

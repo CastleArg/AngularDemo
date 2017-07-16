@@ -2,3 +2,15 @@
     position: relative;
   top: 120px;
 }
+
+@keyframes loading {
+    0% {background-color: white;}
+    100% {background-color: lightblue;}
+}
+
+#loadingIndicator {
+    background-color: red;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}

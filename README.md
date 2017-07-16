@@ -1,5 +1,37 @@
 Discount Ascii Warehouse
 ====
+To Run
+----
+- npm install
+- npm run build-n-serve
+- browse to localhost:8080
+
+This will serve the built and minified production code.
+For development:
+- npm run start to spin up the server
+- ng serve
+- browse to localhost:4200 to have a debuggable dev environment with hot module reloading.
+- I enabled CORS on the server for this but don't worry I reverted everything!
+
+Strategy
+----
+I decided to use Angular CLI as this is what I'm using at work currently.  This uses rxJs for async.  I tried to keep the code readable,maintainable, testable, and with a pain-free environment for dev and building for production.
+There are no tests as yet but the framework is all there, I could do some over the week but thought I'd just show you what I had done over the weekend as it's a decent quality mvp.
+
+Challenges
+----
+I originally had the ad urls being passed as an @Input from the product-list into the ad component, with the getUrl function in the list template.  It worked fine up until I added the scroll event subscription for the infinite scrolling, then this for some reason caused the url to regenerate on every scroll event.
+While this caused a storm of kitty cuteness, I refactored to a static method to get around this problem.
+
+I noticed a couple of duplicate kitties at one point.  I thought there might be a bug but on inspection found they had different urls, so It couldbe that the api is serving dupes from time to time.
+
+Feel free to ask any questions and talk soon!
+
+
+Original Instructions:
+Discount Ascii Warehouse
+====
+
 
 This is an ecommerce site, where you can buy all sorts of ascii faces like `(ノ・∀・)ノ` and `¯_(ツ)_/¯`, in a wide variety of font sizes. The homepage should display a list of products for people to browse.
 

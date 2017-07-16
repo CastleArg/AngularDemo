@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node .",
     "ng": "ng",
-    "start-ui": "ng build --prod && node .",
+    "build-n-serve": "ng build --prod && node .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

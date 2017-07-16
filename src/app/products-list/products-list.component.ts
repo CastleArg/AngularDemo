@@ -17,13 +17,14 @@ export class ProductsListComponent implements OnInit {
   public static currentAdUrl: string;
 
   public products = new Array<Product>();
-  public nextProducts = new Array<Product>();
+  public nextProducts = new Array<Product>();//stored to display at end of page
   public adFrequency = 20;
   public isLoading = false;
   private batchSize = 20;
   public sortMode = SortMode//we need a public property so we can bind in the template.
   public selectedSortMode: SortMode = SortMode.id;
   public endReached = false;
+  public hasError = false;
 
   constructor(private http: Http) { }
 
@@ -59,7 +60,8 @@ export class ProductsListComponent implements OnInit {
         this.products = this.products.concat(theJSON.slice(0, this.batchSize));//todo possibly can use the newlines for one by one streaming
         this.nextProducts = theJSON.slice(this.batchSize);//store the second batch for later!
         this.isLoading = false;
-      })
+      },
+      err => this.hasError = true)
   }
 
   public static getAdUrl(): string {

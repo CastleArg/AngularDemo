@@ -1,6 +1,7 @@
 <div id="products-list" class="products-list">
-  <div id="loadingIndicator" *ngIf="isLoading">Loading...</div>
-  <div class="btn-group btn-group-justified">Sort By:<button class="btn btn-secondary" (click)="setSortMode(sortMode['id'])">Id</button>
+   <div i *ngIf="hasError">There was a problem getting the products.  Please try again later!</div>
+  <div id="loadingIndicator" *ngIf="isLoading && !hasError">Loading...</div>
+  <div *ngIf="!isLoading && !hasError" class="btn-group btn-group-justified">Sort By:<button class="btn btn-secondary" (click)="setSortMode(sortMode['id'])">Id</button>
     <button class="btn btn-secondary" (click)="setSortMode(sortMode['size'])">Size</button>
     <button class="btn btn-secondary" (click)="setSortMode(sortMode['price'])">Price</button>
   </div>

@@ -9,6 +9,8 @@
 }
 
 #loadingIndicator {
+    position: fixed;
+     top: 130px;
     background-color: red;
     animation-name: loading;
     animation-duration: 2s;

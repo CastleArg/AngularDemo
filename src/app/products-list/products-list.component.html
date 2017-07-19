@@ -8,7 +8,7 @@
   <div class="row itemsBlock">
     <div *ngFor="let product of products let i=index" class="col-md-4 col-sm-6 col-12">
       <app-product *ngIf="i==0 || i%adFrequency!=0" [product]="product"></app-product>
-      <app-ad *ngIf="i!=0 && i%adFrequency==0"></app-ad>
+        <app-ad *ngIf="i!=0 && i%adFrequency==0"></app-ad>
     </div>
   </div>
   <div *ngIf="endReached">CONGRATULATIONS!  You reached the end. {{products.length}} products viewed.</div>

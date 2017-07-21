@@ -47,7 +47,8 @@ export class ProductsListComponent implements OnInit {
     Observable.fromEvent(listElement, 'wheel')
       .debounceTime(10)// prevent spam
       .subscribe((event) => {
-        if (window.innerHeight + window.pageYOffset === document.documentElement.scrollHeight && !this.isLoading) {
+        console.log(document.documentElement.scrollHeight);
+        if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight && !this.isLoading) {
           this.products = this.products.concat(this.nextProducts);
           this.nextProducts = [];
           this.getProducts();

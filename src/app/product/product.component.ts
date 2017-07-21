@@ -10,17 +10,25 @@ import { CurrencyPipe } from '@angular/common';
 export class ProductComponent implements OnInit {
   @Input() product: Product;
   public dateString;
+  public now = new Date(); // made public for testablilty
 
   ngOnInit() {
     this.dateString = this.getDateString();
   }
 
   getDateString() {
-    const now = new Date();
     const productDate = new Date(this.product.date);
-    const daysElapsed = this.calculateDaysElapsed(now, productDate);
-
-    return daysElapsed <= 7 ? `${daysElapsed} days ago` : new Date(this.product.date).toLocaleDateString();
+    const daysElapsed = this.calculateDaysElapsed(this.now, productDate);
+    if (daysElapsed === 0) {
+      return 'today';
+    }
+    if (daysElapsed === 1) {
+      return `${daysElapsed} day ago`;
+    }
+    if (daysElapsed < 7) {
+      return `${daysElapsed} days ago`;
+    }
+    return new Date(this.product.date).toLocaleDateString();
   }
 
   calculateDaysElapsed(a: Date, b: Date): number {

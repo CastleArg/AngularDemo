@@ -21,7 +21,7 @@ export class ProductsListComponent implements OnInit {
   public adFrequency = 20;
   public isLoading = false;
   private batchSize = 20;
-  public sortMode = SortMode; // we need a public property so we can bind in the template.
+  public sortMode = SortMode; // we need a public reference to the enum so we can bind in the template.
   public selectedSortMode: SortMode = SortMode.id;
   public endReached = false;
   public hasError = false;
@@ -63,8 +63,9 @@ export class ProductsListComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     .get(`${ProductsListComponent.baseUrl}/api/products?sort=${SortMode[this.selectedSortMode]}&limit=${amountToFetch}&skip=${this.products.length}`)
       .subscribe(products => {
+        console.log(products);
         // swap the newlines for commas for now, put in an array and chop the last comma
-        const commaDelimitedString = `[${products.text().replace(/\n/g, ',').slice(0, -1)}]`;
+        const commaDelimitedString = `[${products.text().toString().replace(/\n/g, ',').slice(0, -1)}]`;
         const theJSON = JSON.parse(commaDelimitedString);
         if (theJSON.length < amountToFetch) {
           this.endReached = true;
@@ -73,8 +74,6 @@ export class ProductsListComponent implements OnInit {
         // todo possibly can use the newlines for one by one streaming
         this.nextProducts = theJSON.slice(this.batchSize); // store the second batch for later!
         this.isLoading = false;
-        console.log(this.products);
-        console.log(typeof(this.products[0].date));
       },
       err => this.hasError = true);
   }

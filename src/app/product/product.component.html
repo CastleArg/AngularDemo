@@ -1,4 +1,4 @@
 <div class="card"> 
-  <p [ngStyle]="{'font-size':product.size+'px'}">{{product.face}}</p>
+  <p class="face" [ngStyle]="{'font-size':product.size+'px'}">{{product.face}}</p>
   <span>{{product.price/100 | currency:'USD':true}} Added {{dateString}}</span>
 </div>

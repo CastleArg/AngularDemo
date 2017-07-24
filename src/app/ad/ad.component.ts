@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductsListComponent } from '../products-list/products-list.component';
 @Component({
   selector: 'app-ad',

@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductComponent } from './product.component';
 import { Product } from './product.model';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -52,10 +54,17 @@ describe('ProductComponent', () => {
     expect(component.getDateString()).toEqual('1 day ago');
   });
 
-   it('should display today when today', () => {
+  it('should display today when today', () => {
     component.now = new Date('Tue Jul 17 2017 16:26:40 GMT+1200 (NZST)');
     component.product.date = 'Tue Jul 17 2017 16:26:40 GMT+1200 (NZST)';
     expect(component.getDateString()).toEqual('today');
+  });
+
+  it('should display face actual size', () => {
+    component.product.size = 42;
+    fixture.detectChanges();
+    const faceElement = fixture.debugElement.query(By.css('.face')).nativeElement;
+    expect(faceElement.style.fontSize).toBe('42px');
   });
 });
 

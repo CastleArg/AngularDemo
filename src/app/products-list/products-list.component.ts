@@ -20,7 +20,7 @@ export class ProductsListComponent implements OnInit {
   public nextProducts = new Array<Product>(); // stored to display at end of page
   public adFrequency = 20;
   public isLoading = false;
-  private batchSize = 20;
+  public batchSize = 20;
   public sortMode = SortMode; // we need a public reference to the enum so we can bind in the template.
   public selectedSortMode: SortMode = SortMode.id;
   public endReached = false;

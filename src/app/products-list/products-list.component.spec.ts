@@ -33,6 +33,10 @@ describe('ProductsListComponent', () => {
     fixture = TestBed.createComponent(ProductsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+     const backend = TestBed.get(MockBackend);
+     backend.connections.subscribe(c => {
+                    c.mockRespond(new Response(new ResponseOptions({body: mockResponseBody})));
+                });
   });
 
   it('should be created', () => {
@@ -40,13 +44,27 @@ describe('ProductsListComponent', () => {
   });
 
   it('should convert products response to JSON array', () => {
-    const backend = TestBed.get(MockBackend);
-     backend.connections.subscribe(c => {
-                    c.mockRespond(new Response(new ResponseOptions({body: mockResponseBody})));
-                });
     component.getProducts();
-    console.log(component.products);
     expect(component.products).toEqual(expectedProducts);
+  });
+
+  it('should store half the response for later', () => {
+    component.batchSize = 2;
+    component.getProducts();
+    expect(component.products.length).toEqual(2);
+    expect(component.nextProducts.length).toEqual(2);
+  });
+
+  it('should set end reached flag true if fewer than expected products returned', () => {
+    component.batchSize = 5;
+    component.getProducts();
+    expect(component.endReached).toEqual(true);
+  });
+
+   it('should set end reached flag false if expected number of products returned', () => {
+    component.batchSize = 2;
+    component.getProducts();
+    expect(component.endReached).toEqual(false);
   });
 });
 

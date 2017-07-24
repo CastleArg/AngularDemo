@@ -8,4 +8,8 @@ export class UIPage {
   getParagraphText() {
     return element(by.css('app-root h1')).getText();
   }
+
+  getProductList() {
+    return element(by.tagName('app-products-list'));
+  }
 }

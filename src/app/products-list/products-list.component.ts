@@ -43,8 +43,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   subscribeToScroll() {
-    const listElement = document.getElementById('products-list');
-    Observable.fromEvent(listElement, 'wheel')
+     Observable.fromEvent(window, 'wheel')
       .debounceTime(10)// prevent spam
       .subscribe((event) => {
         console.log(document.documentElement.scrollHeight);
@@ -63,9 +62,8 @@ export class ProductsListComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     .get(`${ProductsListComponent.baseUrl}/api/products?sort=${SortMode[this.selectedSortMode]}&limit=${amountToFetch}&skip=${this.products.length}`)
       .subscribe(products => {
-        console.log(products);
         // swap the newlines for commas for now, put in an array and chop the last comma
-        const commaDelimitedString = `[${products.text().toString().replace(/\n/g, ',').slice(0, -1)}]`;
+        const commaDelimitedString = `[${products.text().replace(/\n/g, ',').slice(0, -1)}]`;
         const theJSON = JSON.parse(commaDelimitedString);
         if (theJSON.length < amountToFetch) {
           this.endReached = true;

@@ -33,13 +33,14 @@ describe('ProductComponent', () => {
   it('should display full date when 7 days ago', () => {
     component.now = new Date('Tue Jul 24 2017 16:26:40 GMT+1200 (NZST)');
     component.product.date = 'Tue Jul 17 2017 16:26:40 GMT+1200 (NZST)';
-    expect(component.getDateString()).toEqual('17/07/2017');
+    // locale can be different when running tests on different machines, so convert to current locale.
+    expect(component.getDateString()).toEqual(new Date('2017-07-17:00:00:00Z').toLocaleDateString());
   });
 
   it('should display full date when more than 7 days ago', () => {
     component.now = new Date('Tue Jul 25 2017 16:26:40 GMT+1200 (NZST)');
     component.product.date = 'Tue Jul 17 2017 16:26:40 GMT+1200 (NZST)';
-    expect(component.getDateString()).toEqual('17/07/2017');
+    expect(component.getDateString()).toEqual(new Date('2017-07-17:00:00:00Z').toLocaleDateString());
   });
 
   it('should display number of days when fewer than than 7 days ago', () => {

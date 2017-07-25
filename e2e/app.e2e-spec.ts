@@ -15,6 +15,11 @@ describe('ui App', () => {
 
   it('should display product list', () => {
     page.navigateTo();
-    // expect(page.getProductList()).isDisplayed().toBeTruthy();
+    expect(page.getProductList().isDisplayed());
+  });
+
+   it('should display header', () => {
+    page.navigateTo();
+    expect(page.getHeader().isDisplayed());
   });
 });

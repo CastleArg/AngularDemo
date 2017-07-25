@@ -10,6 +10,10 @@ export class UIPage {
   }
 
   getProductList() {
-    return element(by.tagName('app-products-list'));
+    return element(by.id('products-list'));
+  }
+
+  getHeader() {
+    return element(by.id('header'));
   }
 }

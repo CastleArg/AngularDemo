@@ -13,6 +13,10 @@ For development:
 - browse to localhost:4200 to have a debuggable dev environment with hot module reloading.
 - I enabled CORS on the server for this but don't worry I reverted everything!
 
+To Test
+----
+- ng test for karma component tests
+- ng e2e for some basic e2e tests
 Strategy
 ----
 I decided to use Angular CLI as this is what I'm using at work currently.  This uses rxJs for async.  I tried to keep the code readable,maintainable, testable, and with a pain-free environment for dev and building for production.

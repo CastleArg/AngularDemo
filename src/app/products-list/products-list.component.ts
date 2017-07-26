@@ -6,6 +6,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/toPromise';
 import { SortMode } from './sort-mode.model';
+import Helpers from '../Helpers';
 
 @Component({
   selector: 'app-products-list',
@@ -13,9 +14,6 @@ import { SortMode } from './sort-mode.model';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  static baseUrl = 'http://localhost:8000';
-  public static currentAdUrl: string;
-
   public products = new Array<Product>();
   public nextProducts = new Array<Product>(); // stored to display at end of page
   public adFrequency = 20;
@@ -25,15 +23,6 @@ export class ProductsListComponent implements OnInit {
   public selectedSortMode: SortMode = SortMode.id;
   public endReached = false;
   public hasError = false;
-  public static getAdUrl(): string {
-    const url = `${this.baseUrl}/ad/?r=${Math.floor(Math.random() * 1000)}`;
-    // don't retun the same one twice in a row.
-    if (url !== ProductsListComponent.currentAdUrl) {
-      ProductsListComponent.currentAdUrl = url;
-      return url;
-    }
-    return this.getAdUrl();
-  }
 
   constructor(private http: Http) { }
 
@@ -43,7 +32,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   subscribeToScroll() {
-     Observable.fromEvent(window, 'wheel')
+    Observable.fromEvent(window, 'wheel')
       .debounceTime(10)// prevent spam
       .subscribe((event) => {
         console.log(document.documentElement.scrollHeight);
@@ -59,8 +48,8 @@ export class ProductsListComponent implements OnInit {
     this.isLoading = true;
     const amountToFetch = this.batchSize * 2; // We get twice as many as required and save half for later.
     this.http
-    // tslint:disable-next-line:max-line-length
-    .get(`${ProductsListComponent.baseUrl}/api/products?sort=${SortMode[this.selectedSortMode]}&limit=${amountToFetch}&skip=${this.products.length}`)
+      // tslint:disable-next-line:max-line-length
+      .get(`${Helpers.BaseUrl}/api/products?sort=${SortMode[this.selectedSortMode]}&limit=${amountToFetch}&skip=${this.products.length}`)
       .subscribe(products => {
         // swap the newlines for commas for now, put in an array and chop the last comma
         const commaDelimitedString = `[${products.text().replace(/\n/g, ',').slice(0, -1)}]`;

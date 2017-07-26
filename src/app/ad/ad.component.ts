@@ -8,11 +8,8 @@ import Helpers from '../Helpers';
 export class AdComponent implements OnInit {
   public static lastUrl: string;
   public myUrl: string;
-  static generateRandomNumber() {
-    return Math.floor(Math.random() * 1000);
-  }
   private static getAdUrl(): string {
-    const url = `${Helpers.BaseUrl}/ad/?r=${this.generateRandomNumber()}`;
+    const url = `${Helpers.BaseUrl}/ad/?r=${Math.floor(Math.random() * 1000)}`;
     // don't retun the same one twice in a row.
     if (url !== AdComponent.lastUrl) {
       AdComponent.lastUrl = url;

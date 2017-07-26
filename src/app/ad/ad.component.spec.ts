@@ -20,6 +20,7 @@ describe('AdComponent', () => {
   });
 
   it('should be created', () => {
+    spyOn(component, 'getnerateRandomNumber').and.returnValue(true);
     expect(component).toBeTruthy();
   });
 });

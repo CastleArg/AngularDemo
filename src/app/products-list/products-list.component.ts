@@ -1,10 +1,13 @@
+
+import {fromEvent as observableFromEvent,  Observable } from 'rxjs';
+
+import {debounceTime} from 'rxjs/operators';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Product } from '../product/product.model';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/toPromise';
+
+
+
 import { SortMode } from './sort-mode.model';
 import Helpers from '../Helpers';
 
@@ -32,8 +35,8 @@ export class ProductsListComponent implements OnInit {
   }
 
   subscribeToScroll() {
-    Observable.fromEvent(window, 'wheel')
-      .debounceTime(10)// prevent spam
+    observableFromEvent(window, 'wheel').pipe(
+      debounceTime(10))// prevent spam
       .subscribe((event) => {
         console.log(document.documentElement.scrollHeight);
         if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight && !this.isLoading) {
